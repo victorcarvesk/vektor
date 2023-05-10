@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <robot name="vektor" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <link name="base_link"></link>
+    <xacro:include filename="vektor_core.xacro"/>
 
 </robot>
