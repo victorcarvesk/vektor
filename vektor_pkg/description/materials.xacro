@@ -1,8 +1,68 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <material name="white">
-        <color rgba="1 1 1 1"/>
+    <material name="pale-pink">
+        <color rgba="1 0.8 0.8 1"/>
+    </material>
+
+    <material name="pale-yellow">
+            <color rgba="1 1 0.6 1"/>
+    </material>
+
+    <material name="pale-blue">
+            <color rgba="0.7 0.7 1 1"/>
+    </material>
+
+    <material name="pale-green">
+            <color rgba="0.8 1 0.8 1"/>
+    </material>
+
+    <material name="Lavender">
+        <color rgba="0.7 0.5 0.9 1"/>
+    </material>
+
+    <material name="Light pink">
+        <color rgba="0.9 0.7 0.8 1"/>
+    </material>
+
+    <material name="Teal">
+        <color rgba="0.6 0.9 0.8 1"/>
+    </material>
+
+    <material name="Gold">
+        <color rgba="0.9 0.8 0.3 1"/>
+    </material>
+
+    <material name="Orange-red">
+        <color rgba="0.9 0.5 0.3 1"/>
+    </material>
+
+    <material name="Sky blue">
+        <color rgba="0.5 0.8 0.9 1"/>
+    </material>
+
+    <material name="Mint green">
+        <color rgba="0.7 0.9 0.7 1"/>
+    </material>
+
+    <material name="Salmon">
+        <color rgba="0.9 0.5 0.5 1"/>
+    </material>
+
+    <material name="Dark purple">
+        <color rgba="0.3 0.1 0.4 1"/>
+    </material>
+
+    <material name="Light blue">
+        <color rgba="0.5 0.7 0.9 1"/>
+    </material>
+
+    <material name="Olive">
+        <color rgba="0.5 0.6 0.3 1"/>
+    </material>
+
+    <material name="Gray">
+        <color rgba="0.6 0.6 0.6 1"/>
     </material>
 
 </robot>
