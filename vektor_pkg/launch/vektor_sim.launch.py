@@ -67,6 +67,19 @@ def generate_launch_description():
     #     arguments=["joint_broad"],
     # )
 
+    # rviz_config = os.path.join(
+    #     get_package_share_directory('vektor_pkg'),
+    #     'config',
+    #     'vektor_lidar.rviz'
+    # )
+
+    # rviz = Node(
+    #     package='rviz2',
+    #     executable='rviz2',
+    #     name='rviz2',
+    #     arguments=['-d', rviz_config]
+    # )
+
 
     # Code for delaying a node (I haven't tested how effective it is)
     # 
@@ -93,6 +106,7 @@ def generate_launch_description():
         # twist_mux,
         gazebo,
         spawn_entity,
+        # rviz,
         # diff_drive_spawner,
         # joint_broad_spawner
     ])
