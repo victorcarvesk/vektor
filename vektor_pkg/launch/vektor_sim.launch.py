@@ -13,35 +13,35 @@ def generate_launch_description():
 
 	# Package settings -------------------------------------------------------
     package_name = 'vektor_pkg'
-    package_path = os.path.join(get_package_share_directory(package_name))
-
-    rsp_launch = IncludeLaunchDescription(
-		
-		PythonLaunchDescriptionSource([
-			os.path.join(
-				get_package_share_directory(package_name),
-				'launch',
-				'rsp.launch.py'
-				)
-			]),
-
-		launch_arguments={
-			'use_sim_time': 'true',
-			'use_ros2_control': 'true'
-			}.items()
-		)
-
+    package_path = get_package_share_directory(package_name)
 
     gazebo_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
+        PythonLaunchDescriptionSource(
         	os.path.join(
             	get_package_share_directory('ros_gz_sim'),
             	'launch',
             	'gz_sim.launch.py'
             	)
-        	]),
+        	),
             # launch_arguments={'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params_file}.items()
      )
+
+    rsp_launch = IncludeLaunchDescription(
+		
+		PythonLaunchDescriptionSource(
+			os.path.join(
+				package_path,
+				'launch',
+				'rsp.launch.py'
+				),
+			)#,
+
+		# launch_arguments={
+		# 	'use_sim_time': 'true',
+		# 	'use_ros2_control': 'true'
+		# 	}.items()
+		)
+
 
 
 	# joystick_launch = IncludeLaunchDescription(
@@ -59,21 +59,11 @@ def generate_launch_description():
 	# 		}.items()
 	# 	)
 
-    # joint_state_node = Node(
-    #     package='joint_state_publisher_gui',
-    #     executable='joint_state_publisher_gui',
-    #     output='screen'
-	# )
-
-    spawn_entity = Node(
-		package='ros_gz_sim',
-		executable='create',
-		arguments=[
-			'-topic', 'robot_description',
-			'-entity', 'vektor'
-			],
-		output='screen'
-		)
+    joint_state_node = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        output='screen'
+	)
 
 
 
@@ -94,12 +84,12 @@ def generate_launch_description():
 
     # Launch them all!
     return LaunchDescription([
-        rsp_launch,
+        gazebo_launch,
+        rsp_launch
         # joint_state_node,
         # joystick,
         # twist_mux,
-        gazebo_launch,
-        spawn_entity,
+        # spawn_entity,
         # rviz,
         # diff_drive_spawner,
         # joint_broad_spawner
