@@ -4,7 +4,7 @@
     <gazebo>
 
         <plugin
-            filename="libignition-gazebo-diff-drive-system.so"
+            filename="libignition-gazebo-diff-drive-system"
             name="ignition::gazebo::systems::DiffDrive">
 
             <left_joint>left_wheel_joint</left_joint>
@@ -13,15 +13,41 @@
             <wheel_separation>0.35</wheel_separation>
             <wheel_radius>0.05</wheel_radius>
 
-            <odom_publish_frequency>1</odom_publish_frequency>
+            <odom_publish_frequency>100</odom_publish_frequency>
             <topic>cmd_vel</topic>
+
+            <odom_topic>odom</odom_topic>
+            <tf_topic>tf</tf_topic>
+            <frame_id>odom</frame_id>
+            <child_frame_id>base_link</child_frame_id>
+
+            <!-- <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf>
+            <publish_wheel_tf>true</publish_wheel_tf> -->
+
+            <!-- <ros>
+                <remapping>/diff_drive_base_controller/cmd_vel_unstamped:=/cmd_vel</remapping>
+                <remapping>/diff_drive_base_controller/odom:=/odom</remapping>
+            </ros> -->
 
         </plugin>
 
         <plugin
-            filename="libignition-gazebo-sensors-system.so"
+            filename="libignition-gazebo-joint-state-publisher-system"
+            name="ignition::gazebo::systems::JointStatePublisher">
+            <topic>joint_states</topic>
+            <joint_name>left_wheel_joint</joint_name>
+            <joint_name>right_wheel_joint</joint_name>
+        </plugin>
+
+ 
+        <plugin
+            filename="libignition-gazebo-sensors-system"
             name="ignition::gazebo::systems::Sensors">
             <render_engine>ogre2</render_engine>
+
+            <!-- <min_depth>0.1</min_depth>
+            <max_depth>100.0</max_depth> -->
         </plugin>
 
     </gazebo>
