@@ -1,10 +1,10 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <robot name="vektor" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="vektor_core.xacro"/>
-    <xacro:include filename="gazebo_control.xacro"/>
-    <xacro:include filename="lidar.xacro"/>
+    <xacro:include filename="components.xacro"/>
+    <xacro:include filename="plugins.xacro"/>
+    <!-- <xacro:include filename="lidar.xacro"/> -->
     <!-- <xacro:include filename="camera.xacro"/> -->
-    <xacro:include filename="depth_camera.xacro"/>
+    <!-- <xacro:include filename="depth_camera.xacro"/> -->
 
 </robot>

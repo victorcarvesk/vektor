@@ -63,7 +63,7 @@
       <topic>joint_states</topic>
       <!-- Custom topic on which this system will publish joint state messages. -->
 
-      <!-- TODO: SET PUBLISH FREQUENCY / UPDATE RATE. UNKNOWN TAG -->
+      <!-- [TODO] SET PUBLISH FREQUENCY / UPDATE RATE. UNKNOWN TAG. -->
 
       <!-- <joint_name>left_wheel_joint</joint_name> -->
       <!-- <joint_name>right_wheel_joint</joint_name> -->
