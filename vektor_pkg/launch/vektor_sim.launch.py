@@ -18,16 +18,13 @@ def generate_launch_description():
     package_path = get_package_share_directory(package_name)
     robot_name = 'vektor'
 
-    world_config = LaunchConfiguration('world')
+    # world_path = LaunchConfiguration('world', default=)
 
     declare_world_arg = DeclareLaunchArgument(
-        'world', default_value=['base_world.sdf'],
+        'world', default_value='base_world.sdf',
         description='SDF world file',
         )
         
-
-    world_file = PathJoinSubstitution([package_path, 'worlds', world_config])
-
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
         	os.path.join(
@@ -36,7 +33,11 @@ def generate_launch_description():
             	'gz_sim.launch.py'
             	)
         	),
-            launch_arguments={'gz_args': world_file}.items(),
+        launch_arguments={
+            'gz_args':
+                [LaunchConfiguration('world')]
+                + [' -r -v 4 '] 
+            }.items(),
      )
 
 
@@ -136,7 +137,6 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     entities = [
-        declare_world_arg,
         declare_world_arg,
         ign_rsc,
         gazebo_launch,
