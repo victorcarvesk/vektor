@@ -7,7 +7,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 import os
 
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, TextSubstitution
 
 
 
@@ -16,7 +16,7 @@ def generate_launch_description():
 	# Package settings -------------------------------------------------------
     package_name = 'vektor_pkg'
     package_path = get_package_share_directory(package_name)
-    robot_name = 'ign_test'
+    robot_name = 'vektor'
 
     world_config = LaunchConfiguration('world')
 
@@ -26,8 +26,7 @@ def generate_launch_description():
         )
         
 
-    world_file = PathJoinSubstitution([package_path,
-                                       'worlds', world_config])
+    world_file = PathJoinSubstitution([package_path, 'worlds', world_config])
 
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -49,11 +48,11 @@ def generate_launch_description():
             '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
             '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
             '/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
-            '/lidar@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
-            # '/camera@sensor_msgs/msg/Image@gz.msgs.Image',
-            # '/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo',
-            '/depth_camera@sensor_msgs/msg/Image[gz.msgs.Image',
-            '/depth_camera/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
+            # '/lidar@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
+            '/camera/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo',
+            '/camera/image_raw@sensor_msgs/msg/Image@gz.msgs.Image',
+            # '/depth_camera@sensor_msgs/msg/Image@gz.msgs.Image',
+            # '/depth_camera/points@sensor_msgs/msg/PointCloud2@gz.msgs.PointCloudPacked',
             '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model',
             ],
         remappings=[
@@ -101,8 +100,8 @@ def generate_launch_description():
 		package='ros_gz_sim',
 		executable='create',
 		arguments=[
-            # '-name', robot_name,
-			'-topic', 'robot_description'
+            '-name', robot_name,
+			'-topic', 'robot_description',
 			],
 		output='screen'
 		)
@@ -131,21 +130,22 @@ def generate_launch_description():
         resource_paths = (package_path + '/worlds')
         # resource_paths = os.path.join(package_path, '/world:', package_path, '/model')
 
+    ign_rsc = SetEnvironmentVariable(name='IGN_GAZEBO_RESOURCE_PATH',
+                               value=resource_paths)
 
+    ld = LaunchDescription()
 
-    # Launch them all!
-    return LaunchDescription([
-        SetEnvironmentVariable(name='IGN_GAZEBO_RESOURCE_PATH',
-                               value=resource_paths),
+    entities = [
         declare_world_arg,
+        declare_world_arg,
+        ign_rsc,
         gazebo_launch,
         bridge,
         rsp_launch,
-        # joint_state_node,
         spawn_entity,
-        # joystick,
-        # twist_mux,
-        # rviz,
-        # diff_drive_spawner,
-        # joint_broad_spawner
-    ])
+    ]
+
+    for entity in entities:
+        ld.add_action(entity)
+    
+    return ld
