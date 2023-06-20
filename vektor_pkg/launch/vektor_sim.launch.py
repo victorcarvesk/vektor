@@ -36,7 +36,7 @@ def generate_launch_description():
         launch_arguments={
             'gz_args':
                 [LaunchConfiguration('world')]
-                + [' -r -v 4 '] 
+                + [' -r '] 
             }.items(),
      )
 
@@ -46,19 +46,21 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
-            '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
-            '/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
-            # '/lidar@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
-            '/camera/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo',
-            '/camera/image_raw@sensor_msgs/msg/Image@gz.msgs.Image',
-            # '/depth_camera@sensor_msgs/msg/Image@gz.msgs.Image',
-            # '/depth_camera/points@sensor_msgs/msg/PointCloud2@gz.msgs.PointCloudPacked',
-            '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model',
+            '/cmd_vel@geometry_msgs/msg/Twist]ignition.msgs.Twist',
+            '/odom@nav_msgs/msg/Odometry[ignition.msgs.Odometry',
+            '/tf@tf2_msgs/msg/TFMessage[ignition.msgs.Pose_V',
+
+            '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan',
+
+            '/clock@rosgraph_msgs/msg/Clock@ignition.msgs.Clock',
+
+            '/rgbd/camera_info@sensor_msgs/msg/CameraInfo[ignition.msgs.CameraInfo',
+            '/rgbd/image@sensor_msgs/msg/Image[ignition.msgs.Image',
+            '/rgbd/depth_image@sensor_msgs/msg/Image[ignition.msgs.Image',
+            '/rgbd/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked',
+
+            '/joint_states@sensor_msgs/msg/JointState[ignition.msgs.Model',
             ],
-        remappings=[
-            ('/lidar', '/scan'),
-        ],
         output='screen',
     )
 
@@ -109,18 +111,7 @@ def generate_launch_description():
 
 
 
-    # rviz_config = os.path.join(
-    #     get_package_share_directory('vektor_pkg'),
-    #     'config',
-    #     'vektor_lidar.rviz'
-    # )
 
-    # rviz = Node(
-    #     package='rviz2',
-    #     executable='rviz2',
-    #     name='rviz2',
-    #     arguments=['-d', rviz_config]
-    # )
 
     if 'IGN_GAZEBO_RESOURCE_PATH' in os.environ:
         resource_paths = (
