@@ -41,6 +41,12 @@ def generate_launch_description():
             os.path.join(package_path, 'launch', 'spawn.launch.py'),
 			]),
 		)
+    
+    joy_launch = IncludeLaunchDescription(
+		PythonLaunchDescriptionSource([
+            os.path.join(package_path, 'launch', 'joy.launch.py'),
+			]),
+		)
 
 	# joystick_launch = IncludeLaunchDescription(
 
@@ -69,10 +75,10 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     ld.add_action(
-            SetEnvironmentVariable(
-                name=ign_resource_path_env,
-                value=resource_paths,
-                )
+        SetEnvironmentVariable(
+            name=ign_resource_path_env,
+            value=resource_paths,
+            )
         )
 
     tags = ['arg', 'node', 'launch']
