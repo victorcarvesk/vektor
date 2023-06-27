@@ -1,106 +1,98 @@
 import os
 
 from ament_index_python.packages import get_package_share_directory
-
 from launch import LaunchDescription
-from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration, Command
-from launch.actions import DeclareLaunchArgument
+from launch.actions import (DeclareLaunchArgument, IncludeLaunchDescription,
+                            RegisterEventHandler)
+from launch.conditions import IfCondition, UnlessCondition
+from launch.event_handlers import OnProcessExit
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import Command, LaunchConfiguration
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
 
-    # Package settings -------------------------------------------------------
     package_name = 'vektor_pkg'
-    robot_name = 'vektor'
     package_path = os.path.join(get_package_share_directory(package_name))
 
-    # Arguments settings -----------------------------------------------------
-    use_sim_time = LaunchConfiguration('use_sim_time')
-    use_ros2_control = LaunchConfiguration('use_ros2_control')
-    use_rviz = LaunchConfiguration('rviz')
+    robot_name_arg = DeclareLaunchArgument(
+        name='robot_name',
+        description='Set robot name',
+        default_value='vektor',
+        )
 
     use_sim_time_arg = DeclareLaunchArgument(
         name='use_sim_time',
-        choices=['true', 'false'],
-        default_value='false',
         description='Use sim time if true',
+        choices=['true', 'false'],
+        default_value='true',
         )
-
 
     use_ros2_control_arg = DeclareLaunchArgument(
         name='use_ros2_control',
-        choices=['true', 'false'],
-        default_value='true',
         description='Use ros2_control if true',
+        choices=['true', 'false'],
+        default_value='false',
         )
     
-    use_rviz_arg = DeclareLaunchArgument(
-        name='rviz',
+    use_ign_arg = DeclareLaunchArgument(
+        name='use_ign',
+        description='Use ign if true',
         choices=['true', 'false'],
-        default_value='true',
-        description='Use RViz if true',
+        default_value='false',
         )
+    
+    robot_name = LaunchConfiguration('robot_name')
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    use_ros2_control = LaunchConfiguration('use_ros2_control')
+    use_ign = LaunchConfiguration('use_ign')
 
-    # Xacro settings ---------------------------------------------------------
     xacro_file = os.path.join(package_path,'description','vektor.xacro')
 
-    robot_description_config = Command([
-        'xacro ', xacro_file,
-        ' gazebo:=ignition',
-        ' use_ros2_control:=', use_ros2_control,
-        ' sim_mode:=', use_sim_time,
-        ' namespace:=', robot_name,
-        ])
+    robot_description = ParameterValue(
+        Command([
+            'xacro ', xacro_file,
+            ' gazebo:=ignition',
+            ' use_ros2_control:=', use_ros2_control,
+            ' sim_mode:=', use_sim_time,
+            ]),
+        value_type=str,
+        )
 
-    # Create a robot_state_publisher node ------------------------------------
-    params = {
-        'robot_description': robot_description_config,
-        'use_sim_time': use_sim_time,
-        }
-
-    node_robot_state_publisher = Node(
+    rsp_node = Node(
         package = 'robot_state_publisher',
         executable = 'robot_state_publisher',
         name='robot_state_publisher',
+        parameters = [{
+            'robot_description': robot_description,
+            'use_sim_time': use_sim_time,
+            }],
         output = 'screen',
-        parameters = [params],
         )
     
-    rviz_config = os.path.join(
-        package_path,
-        'config',
-        'vektor_depth.rviz'
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='jsp_node',
+        output='screen',
+        condition=UnlessCondition(use_ign),
     )
-
-    rviz = Node(
-        package='rviz2',
-        executable='rviz2',
-        name='rviz2',
-        arguments=[
-            '-d',
-            rviz_config,
-            ],
-        condition=IfCondition(
-            LaunchConfiguration('rviz'),
-            ),
-        
-    )
-
-    # Return the launch description ------------------------------------------
+    
+    rviz_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(package_path, 'launch', 'rviz.launch.py')
+            ]),
+        )
 
     ld = LaunchDescription()
 
-    entities = [
-        use_sim_time_arg,
-        use_ros2_control_arg,
-        use_rviz_arg,
-        node_robot_state_publisher,
-        rviz,
-        ]
-    
+    tags = ['arg', 'node', 'launch', 'delay']
+    entities = locals().copy()
+   
     for entity in entities:
-        ld.add_action(entity)
-
+        if any(tag in entity for tag in tags):
+            ld.add_action(eval(entity, locals()))
+    
     return ld
