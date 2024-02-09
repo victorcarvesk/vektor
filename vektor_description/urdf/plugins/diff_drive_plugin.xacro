@@ -1,0 +1,66 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <gazebo>
+
+    <plugin
+      filename="libignition-gazebo-diff-drive-system"
+      name="ignition::gazebo::systems::DiffDrive">
+
+      <!-- DiffDrive Class Reference -->
+      <!-- https://gazebosim.org/api/gazebo/5.1/classignition_1_1gazebo_1_1systems_1_1DiffDrive.html -->
+
+      <left_joint>left_wheel_joint</left_joint>
+      <!-- Name of a joint that controls a left wheel. -->
+      <!-- This element can appear multiple times, and must appear at least once. -->
+
+      <right_joint>right_wheel_joint</right_joint>
+      <!-- Name of a joint that controls a right wheel. -->
+      <!-- This element can appear multiple times, and must appear at least once. -->
+
+      <wheel_separation>0.35</wheel_separation>
+      <!-- Distance between wheels, in meters. The default value is 1.0m.-->
+      <!-- This element is optional, although it is recommended to be included with an appropriate
+      value. -->
+
+      <wheel_radius>0.05</wheel_radius>
+      <!-- Wheel radius in meters. The default value is 0.2m. -->
+      <!-- This element is optional, although it is recommended to be included with an appropriate
+      value. -->
+
+      <odom_publish_frequency>100</odom_publish_frequency>
+      <!-- Odometry publication frequency. -->
+      <!-- This element is optional, and the default value is 50Hz. -->
+
+      <topic>cmd_vel</topic>
+      <!-- Custom topic that this system will subscribe to in order to receive command velocity
+      messages.  -->
+      <!-- This element if optional, and the default value is /model/{name_of_model}/cmd_vel. -->
+
+      <odom_topic>odom</odom_topic>
+      <!-- Custom topic on which this system will publish odometry messages. -->
+      <!-- This element if optional, and the default value is /model/{name_of_model}/odometry. -->
+
+      <tf_topic>tf</tf_topic>
+      <!-- Custom topic on which this system will publish the transform from frame_id to
+      child_frame_id. -->
+      <!-- This element if optional, and the default value is /model/{name_of_model}/tf. -->
+
+      <frame_id>odom</frame_id>
+      <!-- Custom frame_id field that this system will use as the origin of the odometry transform
+      in 
+      both the <tf_topic> ignition.msgs.Pose_V message and the <odom_topic> ignition.msgs.Odometry
+      message. -->
+      <!-- This element if optional, and the default value is {name_of_model}/odom. -->
+
+      <child_frame_id>base_footprint</child_frame_id>
+      <!-- Custom child_frame_id that this system will use as the target of the odometry transform
+      in
+      both the <tf_topic> ignition.msgs.Pose_V message and the <odom_topic> ignition.msgs.Odometry
+      message. -->
+      <!-- This element if optional, and the default value is {name_of_model}/{name_of_link}. -->
+    </plugin>
+
+  </gazebo>
+
+</robot>

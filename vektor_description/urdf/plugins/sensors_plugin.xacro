@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <gazebo>
+
+    <plugin
+      filename="libignition-gazebo-sensors-system"
+      name="ignition::gazebo::systems::Sensors">
+
+      <!-- Sensors Class (LiDAR, camera, depth camera etc). -->
+
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+  </gazebo>
+
+</robot>

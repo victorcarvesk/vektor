@@ -1,0 +1,19 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <ros2_control name="ahrs_control" type="system">
+
+    <hardware>
+      <plugin>ahrs_sensor_gazebo_hw_interface/AHRSSensorGazeboSystem</plugin>
+      <param name="sensor_link_name">ahrs_frame</param>
+    </hardware>
+
+    <sensor name="ahrs">
+      <state_interface name="roll"/>
+      <state_interface name="pitch"/>
+      <state_interface name="yaw"/>
+    </sensor>
+    
+  </ros2_control>
+
+</robot>

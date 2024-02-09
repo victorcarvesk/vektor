@@ -1,0 +1,31 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<robot name="vektor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="ros2_control" default="false" />
+  
+  <xacro:include filename="structures/base_component.xacro" />
+  
+  <xacro:include filename="plugins/joint_state_publisher_plugin.xacro" />
+  <xacro:include filename="plugins/sensors_plugin.xacro" />
+  
+  <xacro:include filename="sensors/lidar_sensor.xacro" />
+  <xacro:include filename="sensors/rgbd_camera_sensor.xacro" />
+  
+  <xacro:lidar prefix="main" parent="chassis_link">
+    <origin xyz="0.1 0 0.175" rpy="0 0 0" />
+  </xacro:lidar>
+  
+  <xacro:rgbd_camera prefix="main" parent="base_link">
+    <origin xyz="0.205 0 0.075" rpy="0 0 0" />
+  </xacro:rgbd_camera>
+  
+  <xacro:if value="$(arg ros2_control)">
+    <xacro:include filename="plugins/ros2_control_plugin.xacro" />
+    <xacro:include filename="ros2_control/diff_drive_ros2_control.xacro" />
+  </xacro:if>
+  
+  <xacro:unless value="$(arg ros2_control)">
+    <xacro:include filename="plugins/diff_drive_plugin.xacro" />
+  </xacro:unless>
+  
+</robot>

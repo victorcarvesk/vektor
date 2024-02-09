@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.9">
+  <world name="base_world">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin
+      filename="ignition-gazebo-physics-system"
+      name="ignition::gazebo::systems::Physics">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-user-commands-system"
+      name="ignition::gazebo::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-scene-broadcaster-system"
+      name="ignition::gazebo::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-contact-system"
+      name="ignition::gazebo::systems::Contact">
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <include>
+      <pose>2.71053 2.34554 0 0 0 0</pose>
+      <uri>
+        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak tree
+      </uri>
+    </include>
+
+    <include>
+      <pose>-1.95037 4.03701 0.03 0 0 0</pose>
+      <uri>
+        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Prius Hybrid
+      </uri>
+    </include>
+
+    <model name='paredes_1'>
+      <pose>-0.002092 -3.84468 0 0 -0 0</pose>
+      <link name='Wall_1'>
+        <pose>-3.98299 3.56524 0 0 -0 0</pose>
+        <visual name='Wall_1_Visual_0'>
+          <pose>-0.913039 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1.17392 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_1_Collision_0'>
+          <geometry>
+            <box>
+              <size>1.17392 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>-0.913039 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_1_Visual_1'>
+          <pose>0.586961 0 0.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1.82608 0.15 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_1_Collision_1'>
+          <geometry>
+            <box>
+              <size>1.82608 0.15 0.5</size>
+            </box>
+          </geometry>
+          <pose>0.586961 0 0.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_1_Visual_2'>
+          <pose>0.986961 0 1.5 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1.02608 0.15 2</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_1_Collision_2'>
+          <geometry>
+            <box>
+              <size>1.02608 0.15 2</size>
+            </box>
+          </geometry>
+          <pose>0.986961 0 1.5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_1_Visual_3'>
+          <pose>0.073921 0 1.9 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.8 0.15 1.2</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_1_Collision_3'>
+          <geometry>
+            <box>
+              <size>0.8 0.15 1.2</size>
+            </box>
+          </geometry>
+          <pose>0.073921 0 1.9 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_2'>
+        <collision name='Wall_2_Collision'>
+          <geometry>
+            <box>
+              <size>4.75 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_2_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>4.75 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>-2.558 1.26524 0 0 -0 -1.5708</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_3'>
+        <pose>-0.882995 -1.03476 0 0 -0 0</pose>
+        <visual name='Wall_3_Visual_0'>
+          <pose>-1.06823 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1.36353 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_3_Collision_0'>
+          <geometry>
+            <box>
+              <size>1.36353 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>-1.06823 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_3_Visual_1'>
+          <pose>1.13177 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1.23647 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_3_Collision_1'>
+          <geometry>
+            <box>
+              <size>1.23647 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>1.13177 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_3_Visual_2'>
+          <pose>0.063534 0 2.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.9 0.15 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_3_Collision_2'>
+          <geometry>
+            <box>
+              <size>0.9 0.15 0.5</size>
+            </box>
+          </geometry>
+          <pose>0.063534 0 2.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_4'>
+        <collision name='Wall_4_Collision'>
+          <geometry>
+            <box>
+              <size>2.25 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_4_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>2.25 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>0.792005 0.01524 0 0 -0 1.5708</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_5'>
+        <pose>2.342 1.06524 0 0 -0 0</pose>
+        <visual name='Wall_5_Visual_0'>
+          <pose>-1.07902 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1.09197 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_5_Collision_0'>
+          <geometry>
+            <box>
+              <size>1.09197 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>-1.07902 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_5_Visual_1'>
+          <pose>0.545983 0 0.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>2.15803 0.15 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_5_Collision_1'>
+          <geometry>
+            <box>
+              <size>2.15803 0.15 0.5</size>
+            </box>
+          </geometry>
+          <pose>0.545983 0 0.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_5_Visual_2'>
+          <pose>0.945983 0 1.5 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1.35803 0.15 2</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_5_Collision_2'>
+          <geometry>
+            <box>
+              <size>1.35803 0.15 2</size>
+            </box>
+          </geometry>
+          <pose>0.945983 0 1.5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_5_Visual_3'>
+          <pose>-0.133033 0 1.9 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.8 0.15 1.2</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <collision name='Wall_5_Collision_3'>
+          <geometry>
+            <box>
+              <size>0.8 0.15 1.2</size>
+            </box>
+          </geometry>
+          <pose>-0.133033 0 1.9 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_6'>
+        <collision name='Wall_6_Collision'>
+          <geometry>
+            <box>
+              <size>2.25 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_6_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>2.25 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>4.63447 0.322778 0 0 -0 -0.785398</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_7'>
+        <collision name='Wall_7_Collision'>
+          <geometry>
+            <box>
+              <size>3.5 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_7_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>3.5 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>5.37693 -2.09468 0 0 -0 -1.5708</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_8'>
+        <collision name='Wall_8_Collision'>
+          <geometry>
+            <box>
+              <size>2.5 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_8_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>2.5 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood.jpg</albedo_map>
+              </metal>
+            </pbr>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>4.20193 -3.76968 0 0 -0 3.14159</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>1</static>
+    </model>
+
+  </world>
+</sdf>
