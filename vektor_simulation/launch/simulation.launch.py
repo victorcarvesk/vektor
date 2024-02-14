@@ -8,8 +8,9 @@ from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
 
 def generate_launch_description():
-    # Package settings -------------------------------------------------------
-    package_name = os.path.basename(os.path.dirname(os.path.dirname(__file__)))
+
+    simulation_pkg = get_package_share_directory('vektor_simulation')
+    world_pkg = get_package_share_directory('vektor_world')
 
     declare_world_arg = DeclareLaunchArgument(
         name='world',
@@ -19,11 +20,19 @@ def generate_launch_description():
 
     world_name = LaunchConfiguration('world')
 
-    world_path = PathJoinSubstitution([
-        get_package_share_directory('vektor_world'),
-        'worlds',
-        world_name,
-    ])
+    world_path = PathJoinSubstitution([world_pkg, 'worlds', world_name])
+
+    declare_gazebo_arg = DeclareLaunchArgument(
+        name='gazebo_config',
+        default_value='simulation.config',
+        description='Gazebo GUI config file',
+    )
+
+    gazebo_config_file = LaunchConfiguration('gazebo_config')
+
+    gazebo_config_path = PathJoinSubstitution([
+        simulation_pkg, 'config', gazebo_config_file
+        ])
 
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -32,34 +41,20 @@ def generate_launch_description():
                 'launch',
                 'gz_sim.launch.py'),
         ),
-        launch_arguments={'gz_args': [world_path, ' -r ']}.items(),
-        # launch_arguments={'gz_args': [world_path, ' -r ', '--gui-config ', gui_config]}.items(),
+        launch_arguments={'gz_args': [
+            ' -r ', world_path,
+            ' --gui-config ', gazebo_config_path,
+            ]}.items(),
     )
 
     spawn_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             os.path.join(
-                get_package_share_directory(package_name), 'launch', 'spawn.launch.py')
+                simulation_pkg, 'launch', 'spawn.launch.py')
         ]),
     )
 
-    ign_resource_path_env = 'IGN_GAZEBO_RESOURCE_PATH'
-
-    resource_paths = os.path.join(get_package_share_directory(package_name), 'world')
-    print(f"raw_path: {resource_paths}")
-
-    if ign_resource_path_env in os.environ:
-        resource_paths += ':' + os.environ[ign_resource_path_env]
-        print(f"path: {resource_paths}")
-
     ld = LaunchDescription()
-
-    ld.add_action(
-            SetEnvironmentVariable(
-                name=ign_resource_path_env,
-                value=resource_paths,
-                )
-        )
 
     tags = ['arg', 'node', 'launch', 'controller']
     entities = locals().copy()

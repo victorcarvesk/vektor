@@ -1,9 +1,13 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="inertial_macro.xacro" />
   <xacro:include filename="materials.xacro" />
-  <xacro:include filename="wheel_component.xacro" />
+  <xacro:include filename="inertial_macro.xacro" />
+
+  <xacro:include filename="wheel.xacro" />
+
+  <xacro:include filename="../sensors/lidar_sensor.xacro" />
+  <xacro:include filename="../sensors/rgbd_camera_sensor.xacro" />
 
   <link name="base_footprint" />
 
@@ -40,14 +44,22 @@
     <origin xyz="-0.1 0 0" />
   </joint>
 
-  <xacro:wheel prefix="left" parent="base_link">
+  <xacro:wheel
+    prefix="left"
+    radius="0.05"
+    length="0.04"
+    parent="base_link">
     <origin xyz="0 0.17 0" rpy="-${pi/2} 0 0" />
-    <axis xyz="0 0 1"/>
+    <axis xyz="0 0 1" />
   </xacro:wheel>
 
-  <xacro:wheel prefix="right" parent="base_link">
+  <xacro:wheel
+      prefix="right"
+      radius="0.05"
+      length="0.04"
+      parent="base_link">
     <origin xyz="0 -0.17 0" rpy="${pi/2} 0 0" />
-    <axis xyz="0 0 -1"/>
+    <axis xyz="0 0 -1" />
   </xacro:wheel>
 
   <link name="caster_wheel_link">
@@ -72,6 +84,14 @@
     <child link="caster_wheel_link" />
     <origin xyz="0.14 0 0" />
   </joint>
+
+  <xacro:lidar prefix="main" parent="chassis_link">
+    <origin xyz="0.1 0 0.175" rpy="0 0 0" />
+  </xacro:lidar>
+
+  <xacro:rgbd_camera prefix="main" parent="base_link">
+    <origin xyz="0.205 0 0.075" rpy="0 0 0" />
+  </xacro:rgbd_camera>
 
   <gazebo reference="caster_wheel_link">
     <mu1 value="0.001" />

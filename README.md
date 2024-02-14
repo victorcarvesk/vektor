@@ -7,8 +7,9 @@ Design of a ground robot based on ROS 2 Humble and simulated on the Ignition Gaz
 
 This repository is organized in the following directory structure:
 
-- [bringup](./vektor_bringup/) → stores robot_state_publisher (rsp) and RViz launch files and RViz configuration files.
-- [description](./vektor_description/) → stores XACRO description files, robot meshes, and configuration files for ros2_control.
+- [bringup](./vektor_bringup/) → stores robot system launch files.
+- [controllers](./vektor_controllers/) → stores ros2_control related files.
+- [description](./vektor_description/) → stores .xacro description files and robot meshes.
 - [navigation](./vektor_navigation/) → stores map files for navigation with nav2.
 - [simulation](./vektor_simulation/) → stores simulation launch files (bridge, controllers, spawn and the simulation itself).
 - [teleoperation](./vektor_teleoperation/) → stores a gamepad node and his launch file to teleoperate the robot with a gamepad.
@@ -19,6 +20,7 @@ This repository is organized in the following directory structure:
 - [Ubuntu 22.04.3 LTS (Jammy Jellyfish)](https://releases.ubuntu.com/jammy/)
 - [ROS 2 Humble Hawksbill](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 - [Ignition Gazebo Fortress](https://gazebosim.org/docs/fortress/ros_installation)
+- [joint_state_publisher_gui](https://index.ros.org/p/joint_state_publisher_gui/): `sudo apt install ros-humble-joint-state-publisher-gui`
 - [ros2_control](https://control.ros.org/humble/doc/getting_started/getting_started.html#binary-packages): `sudo apt install ros-humble-ign-ros2-control ros-humble-ign-ros2-control-demos`
 
 ## Installation
@@ -49,7 +51,7 @@ source install/setup.bash
 ```bash
 ros2 launch vektor_simulation simulation.launch.py
 ```
-4.  Teleoperate:
+4.  Teleoperate (keyboard):
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
@@ -60,7 +62,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```bash
 ros2 launch vektor_simulation simulation.launch.py use_ros2_control:=true
 ```
-2. Teleoperate
+2. Teleoperate (keyboard)
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_drive_base_controller/cmd_vel_unstamped
 ```
@@ -76,15 +78,16 @@ ros2 launch vektor_simulation simulation.launch.py use_rviz:=true
 ros2 launch vektor_bringup rviz.launch.py 
 ```
 
-### Teleoperation with a gamepad
-> [!WARNING]
-> This node has not yet been integrated into ros2_control controllers of this robot.
-- Launch gamepad node:
+### Teleoperation (gamepad)
+- Start the simulation with teleoperation via gamepad with the following command:
 ```bash
-ros2 launch vektor_teleoperation teleop_joy.launch.py
+ros2 launch vektor_simulation simulation.launch.py teleop:=true
 ```
 > [!IMPORTANT]
 > Control the robot with the right stick of the gamepad (tested with a Xbox controller).
+
+> [!TIP]
+> It also works with ros2 control by setting `use_ros2_control:=true`.
 
 ## Contribution
 This project is based on the robot developed by [Josh Newans](https://github.com/joshnewans) in the "[Build a mobile robot](https://www.youtube.com/playlist?list=PLunhqkrRNRhYAffV8JDiFOatQXuU-NnxT)" playlist on the YouTube channel [Articulated Robotics](https://www.youtube.com/@ArticulatedRobotics).

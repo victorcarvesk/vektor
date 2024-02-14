@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(vektor_navigation)
+project(vektor_controllers)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -18,7 +18,7 @@ foreach(dependency IN ITEMS ${DEPENDENCIES})
 endforeach()
 
 install(
-  DIRECTORY config maps
+  DIRECTORY config urdf
   DESTINATION share/${PROJECT_NAME}/
 )
 

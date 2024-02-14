@@ -5,7 +5,7 @@
     <plugin
       filename="ign_ros2_control-system"
       name="ign_ros2_control::IgnitionROS2ControlPlugin">
-      <parameters>$(find vektor_description)/controllers/diff_drive_controller_velocity.yaml</parameters>
+      <parameters>$(find vektor_controllers)/config/vektor_controllers.yaml</parameters>
     </plugin>
   </gazebo>
 
