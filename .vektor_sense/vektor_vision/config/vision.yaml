@@ -1,0 +1,3 @@
+vision_node:
+  ros__parameters:
+    device: 0

@@ -1,0 +1,112 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<robot name="vektor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- args -->
+  <xacro:arg name="ros2_control" default="false" />
+
+  <!-- components -->
+  <xacro:include filename="libs/material.xacro" />
+  <xacro:include filename="libs/inertial.xacro" />
+  <xacro:include filename="libs/blueprint.xacro" />
+
+  <xacro:include filename="structures/wheel.xacro" />
+  <xacro:include filename="structures/caster.xacro" />
+
+  <xacro:include filename="sensors/lidar.xacro" />
+  <xacro:include filename="sensors/rgbd_camera.xacro" />
+
+  <!-- main structure -->
+  <link name="base_footprint" />
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="base_link" />
+    <origin xyz="0 0 ${chassis_elevation}" />
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="${chassis_length/4} 0 ${chassis_height/2}" rpy="0 0 0" />
+      <geometry>
+        <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+      </geometry>
+      <xacro:material name="${chassis_material}" />
+    </visual>
+    <collision>
+      <origin xyz="${chassis_length/4} 0 ${chassis_height/2}" rpy="0 0 0" />
+      <geometry>
+        <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+      </geometry>
+    </collision>
+    <xacro:inertial_box
+      mass="${chassis_mass}"
+      x="${chassis_length}"
+      y="${chassis_width}"
+      z="${chassis_height}"
+    />
+  </link>
+
+  <xacro:wheel
+    parent="base_link"
+    id="left"
+    radius="${wheel_radius}"
+    length="${wheel_width}"
+    distance="${wheel_offset}"
+  ></xacro:wheel>
+
+  <xacro:wheel
+    parent="base_link"
+    id="right"
+    radius="${wheel_radius}"
+    length="${wheel_width}"
+    distance="${wheel_offset}"
+  ></xacro:wheel>
+
+  <xacro:caster
+    parent="base_link"
+    id="main"
+    radius="0.05"
+    distance="${chassis_length/2}"
+  ></xacro:caster>
+
+  <xacro:lidar
+    parent="base_link"
+    id="main"
+  >
+    <origin
+      xyz="0 0 0.17"
+      rpy="0 0 0"
+    />
+  </xacro:lidar>
+
+  <xacro:rgbd_camera
+    parent="base_link"
+    id="main"
+  >
+    <origin
+      xyz="${chassis_length*0.75+0.005} 0 ${chassis_height/2}"
+      rpy="0 0 0"
+    />
+  </xacro:rgbd_camera>
+
+  <!-- plugins -->
+  <xacro:if value="$(arg sim_mode)">
+    <xacro:include
+      filename="$(find vektor_simulation)/plugins/joint_state_publisher_plugin.xacro" />
+    <xacro:include
+      filename="$(find vektor_simulation)/plugins/sensors_plugin.xacro" />
+
+    <xacro:if value="$(arg ros2_control)">
+      <xacro:include
+        filename="$(find vektor_simulation)/plugins/ros2_control_plugin.xacro" />
+      <xacro:include
+        filename="$(find vektor_control)/urdf/diff_drive_ros2_control.xacro" />
+    </xacro:if>
+
+    <xacro:unless value="$(arg ros2_control)">
+      <xacro:include
+        filename="$(find vektor_simulation)/plugins/diff_drive_plugin.xacro" />
+    </xacro:unless>
+  </xacro:if>
+
+</robot>

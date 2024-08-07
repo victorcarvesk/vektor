@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <gazebo>
+
+    <plugin
+      filename="libignition-gazebo-joint-state-publisher-system"
+      name="ignition::gazebo::systems::JointStatePublisher">
+
+      <!-- JointStatePublisher Class Reference -->
+      <!--
+      https://gazebosim.org/api/gazebo/3.3/classignition_1_1gazebo_1_1systems_1_1JointStatePublisher.html -->
+
+      <topic>joint_states</topic>
+      <!-- Custom topic on which this system will publish joint state messages. -->
+
+      <!-- [TODO] SET PUBLISH FREQUENCY / UPDATE RATE. UNKNOWN TAG. -->
+
+      <!-- <joint_name>left_wheel_joint</joint_name> -->
+      <!-- <joint_name>right_wheel_joint</joint_name> -->
+      <!-- Name of a joint to publish. This parameter can be specified multiple times, and is
+      optional. -->
+      <!-- All joints in a model will be published if joint names are not specified. -->
+    </plugin>
+
+  </gazebo>
+
+</robot>

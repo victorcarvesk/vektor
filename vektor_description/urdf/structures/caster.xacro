@@ -1,0 +1,36 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="caster" params="id radius distance parent">
+
+  <xacro:property name="caster_id" value="${parent}_${id}_caster"/>
+  
+    <joint name="${caster_id}_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link="${caster_id}_link" />
+      <origin xyz="${distance} 0 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="${caster_id}_link">
+      <visual>
+        <geometry>
+          <sphere radius="${radius}" />
+        </geometry>
+        <xacro:material name="gray" />
+      </visual>
+      <collision>
+        <geometry>
+          <sphere radius="${radius}" />
+        </geometry>
+      </collision>
+      <xacro:inertial_sphere mass="0.1" radius="0.05" />
+    </link>
+
+    <gazebo reference="${caster_id}_link">
+      <mu1 value="0.001" />
+      <mu2 value="0.001" />
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>
